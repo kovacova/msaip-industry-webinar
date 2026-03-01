@@ -1,4 +1,4 @@
 $schema: https://azuremlschemas.azureedge.net/latest/managedOnlineEndpoint.schema.json
-name: tina-churn-ep-001
+name: tina-churn-ep-002
 description: telecom churn online endpoint
 auth_mode: key

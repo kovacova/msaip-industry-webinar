@@ -1,10 +1,10 @@
 $schema: https://azuremlschemas.azureedge.net/latest/managedOnlineDeployment.schema.json
 name: blue
-endpoint_name: tina-churn-ep-001
+endpoint_name: tina-churn-ep-002
 model: azureml:teleco-churn-model@latest
 code_configuration:
   code: ../../deploy/online/
   scoring_script: score.py
 environment: azureml:teleco-churn-deploy-env@latest
-instance_type: Standard_F2s_v2
+instance_type: Standard_DS2_v2
 instance_count: 1
