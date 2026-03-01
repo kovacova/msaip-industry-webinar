@@ -1,6 +1,6 @@
 $schema: https://azuremlschemas.azureedge.net/latest/managedOnlineDeployment.schema.json
 name: blue
-endpoint_name: teleco-churn-ep-001
+endpoint_name: tina-churn-ep-001
 model: azureml:teleco-churn-model@latest
 code_configuration:
   code: ../../deploy/online/
