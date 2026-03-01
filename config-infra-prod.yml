@@ -22,6 +22,7 @@ variables:
   # For pipeline reference
   resource_group: default_resource_group
   aml_workspace: tina-ml-workspace
+  oep: teleco-churn-ep-001
   application_insights: demoworkspace1997734687
   key_vault: demoworkspace9715646723
   container_registry: a9c528dba4cc4042a824b912e74ef850
