@@ -44,11 +44,21 @@ jobs:
       - name: update-extension
         run: az extension update -n ml
 
-      - name: create-batch-deployment
+      - name: create-or-update-deployment
         run: |
-          az ml ${{ inputs.endpoint_type }}-deployment create \
+          # create fails if the deployment already exists, so update it instead
+          if az ml ${{ inputs.endpoint_type }}-deployment show \
+              --name ${{ inputs.deployment_name }} \
+              --endpoint-name ${{ inputs.endpoint_name }} \
+              --resource-group ${{ inputs.resource_group }} \
+              --workspace-name ${{ inputs.workspace_name }} > /dev/null 2>&1; then
+            action=update
+          else
+            action=create
+          fi
+          az ml ${{ inputs.endpoint_type }}-deployment $action \
             --name ${{ inputs.deployment_name }} \
-            --endpoint ${{ inputs.endpoint_name }} \
+            --endpoint-name ${{ inputs.endpoint_name }} \
             -f ${{ github.workspace }}/${{ inputs.endpoint_file }} \
             --resource-group ${{ inputs.resource_group }} \
             --workspace-name ${{ inputs.workspace_name }}

@@ -41,9 +41,18 @@ jobs:
       - name: update-extension
         run: az extension update -n ml
 
-      - name: create-environment-from-file
+      - name: create-or-update-endpoint
         run: |
-          az ml ${{ inputs.endpoint_type }}-endpoint create \
+          # create fails if the endpoint already exists, so update it instead
+          if az ml ${{ inputs.endpoint_type }}-endpoint show \
+              --name ${{ inputs.endpoint_name }} \
+              --resource-group ${{ inputs.resource_group }} \
+              --workspace-name ${{ inputs.workspace_name }} > /dev/null 2>&1; then
+            action=update
+          else
+            action=create
+          fi
+          az ml ${{ inputs.endpoint_type }}-endpoint $action \
             --name ${{ inputs.endpoint_name }} \
             -f ${{ github.workspace }}/${{ inputs.endpoint_file }} \
             --resource-group ${{ inputs.resource_group }} \
